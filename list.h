@@ -52,7 +52,6 @@ public:
         clear_list();
     }
 
-    // Оператор присваивания
     LinkedList& operator=(const LinkedList& other) {
         if (this != &other) {
             clear_list();
@@ -61,7 +60,6 @@ public:
         return *this;
     }
     
-    // Добавление элемента в конец
     void push_tail(T value) {
         Node<T>* new_node = new Node<T>(value);
         if (!tail) {
@@ -74,7 +72,6 @@ public:
         ++size;
     }
     
-    // Перегруженный метод: добавление другого списка в конец
     void push_tail(const LinkedList& other) {
         Node<T>* current = other.head;
         while (current) {
@@ -83,7 +80,6 @@ public:
         }
     }
     
-    // Добавление элемента в начало
     void push_head(T value) {
         Node<T>* new_node = new Node<T>(value);
         if (!head) {
@@ -96,13 +92,52 @@ public:
         ++size;
     }
     
-    // Перегруженный метод: добавление другого списка в начало
     void push_head(const LinkedList& other) {
         LinkedList<T> temp(other);
         Node<T>* current = temp.head;
         while (current) {
             push_head(current->data);
             current = current->next;
+        }
+    }
+
+    void pop_tail() {
+        if (!tail) throw std::underflow_error("List is empty.");
+        if (head == tail) {
+            delete head;
+            head = tail = nullptr;
+        }
+        else {
+            Node<T>* current = head;
+            while (current->next != tail) {
+                current = current->next;
+            }
+            delete tail;
+            tail = current;
+            tail->next = nullptr;
+        }
+        --size;
+    }
+    
+    // Удаление всех узлов с определенным значением
+    void delete_node(T value) {
+        while (head && head->data == value) {
+            pop_head();
+        }
+        Node<T>* current = head;
+        while (current && current->next) {
+            if (current->next->data == value) {
+                Node<T>* temp = current->next;
+                current->next = current->next->next;
+                delete temp;
+                --size;
+            }
+            else {
+                current = current->next;
+            }
+        }
+        if (tail && tail->data == value) {
+            pop_tail();
         }
     }
 
