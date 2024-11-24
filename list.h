@@ -51,4 +51,59 @@ public:
     ~LinkedList() {
         clear_list();
     }
+
+    // Оператор присваивания
+    LinkedList& operator=(const LinkedList& other) {
+        if (this != &other) {
+            clear_list();
+            copy_list(other);
+        }
+        return *this;
+    }
+    
+    // Добавление элемента в конец
+    void push_tail(T value) {
+        Node<T>* new_node = new Node<T>(value);
+        if (!tail) {
+            head = tail = new_node;
+        }
+        else {
+            tail->next = new_node;
+            tail = new_node;
+        }
+        ++size;
+    }
+    
+    // Перегруженный метод: добавление другого списка в конец
+    void push_tail(const LinkedList& other) {
+        Node<T>* current = other.head;
+        while (current) {
+            push_tail(current->data);
+            current = current->next;
+        }
+    }
+    
+    // Добавление элемента в начало
+    void push_head(T value) {
+        Node<T>* new_node = new Node<T>(value);
+        if (!head) {
+            head = tail = new_node;
+        }
+        else {
+            new_node->next = head;
+            head = new_node;
+        }
+        ++size;
+    }
+    
+    // Перегруженный метод: добавление другого списка в начало
+    void push_head(const LinkedList& other) {
+        LinkedList<T> temp(other);
+        Node<T>* current = temp.head;
+        while (current) {
+            push_head(current->data);
+            current = current->next;
+        }
+    }
+
 };
