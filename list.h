@@ -1,5 +1,8 @@
 #pragma once
 #include <iostream>
+#include <stdexcept>
+#include <random>
+#include <unordered_set>
 
 
 template <typename T>
