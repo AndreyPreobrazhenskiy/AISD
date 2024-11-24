@@ -119,7 +119,6 @@ public:
         --size;
     }
     
-    // Удаление всех узлов с определенным значением
     void delete_node(T value) {
         while (head && head->data == value) {
             pop_head();
@@ -141,4 +140,34 @@ public:
         }
     }
 
+    T operator[](size_t index) const {
+        if (index >= size) throw std::out_of_range("Index out of range.");
+        Node<T>* current = head;
+        for (size_t i = 0; i < index; ++i) {
+            current = current->next;
+        }
+        return current->data;
+    }
+    
+    T& operator[](size_t index) {
+        if (index >= size) throw std::out_of_range("Index out of range.");
+        Node<T>* current = head;
+        for (size_t i = 0; i < index; ++i) {
+            current = current->next;
+        }
+        return current->data;
+    }
+    
+    size_t get_size() const {
+        return size;
+    }
+    
+    friend std::ostream& operator<<(std::ostream& os, const LinkedList& list) {
+        Node<T>* current = list.head;
+        while (current) {
+            os << current->data << " ";
+            current = current->next;
+        }
+        return os;
+    }
 };
