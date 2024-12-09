@@ -157,3 +157,35 @@ void random_array_experiment(size_t size, unsigned seed) {
         << "  Heap Sort - Comparisons: " << avg_heap.comparison_count
         << ", Copies: " << avg_heap.copy_count << "\n";
 }
+
+void sorted_array_experiment(size_t size) {
+    std::vector<int> sorted_array = generate_sorted_array(size);
+
+    stats stats_insertion = insertion_sort(sorted_array);
+    stats stats_shell = shell_sort(sorted_array);
+    stats stats_heap = heap_sort(sorted_array);
+
+    std::cout << "\nSorted Array (Size: " << size << ")\n"
+        << "  Insertion Sort - Comparisons: " << stats_insertion.comparison_count
+        << ", Copies: " << stats_insertion.copy_count << "\n"
+        << "  Shell Sort - Comparisons: " << stats_shell.comparison_count
+        << ", Copies: " << stats_shell.copy_count << "\n"
+        << "  Heap Sort - Comparisons: " << stats_heap.comparison_count
+        << ", Copies: " << stats_heap.copy_count << "\n";
+}
+
+void reverse_array_experiment(size_t size) {
+    std::vector<int> reverse_array = generate_reverse_sorted_array(size);
+
+    stats stats_insertion = insertion_sort(reverse_array);
+    stats stats_shell = shell_sort(reverse_array);
+    stats stats_heap = heap_sort(reverse_array);
+
+    std::cout << "\nReverse Sorted Array (Size: " << size << ")\n"
+        << "  Insertion Sort - Comparisons: " << stats_insertion.comparison_count
+        << ", Copies: " << stats_insertion.copy_count << "\n"
+        << "  Shell Sort - Comparisons: " << stats_shell.comparison_count
+        << ", Copies: " << stats_shell.copy_count << "\n"
+        << "  Heap Sort - Comparisons: " << stats_heap.comparison_count
+        << ", Copies: " << stats_heap.copy_count << "\n";
+}
