@@ -29,3 +29,24 @@ stats insertion_sort(std::vector<int>& arr) {
     return stat;
 }
 
+stats shell_sort(std::vector<int>& arr) {
+    stats stat;
+    size_t n = arr.size();
+    for (size_t gap = n / 2; gap > 0; gap /= 2) {
+        for (size_t i = gap; i < n; ++i) {
+            int temp = arr[i];
+            ++stat.copy_count; // Считаем копирование
+            size_t j = i;
+            while (j >= gap && arr[j - gap] > temp) {
+                ++stat.comparison_count; // Сравнение
+                arr[j] = arr[j - gap];
+                ++stat.copy_count; // Копирование
+                j -= gap;
+            }
+            if (j >= gap) ++stat.comparison_count; // Последнее сравнение
+            arr[j] = temp;
+            ++stat.copy_count; // Копирование temp
+        }
+    }
+    return stat;
+}
