@@ -93,3 +93,29 @@ stats heap_sort(std::vector<int>& arr) {
     }
     return stat;
 }
+
+std::vector<int> generate_random_array(size_t size, unsigned seed) {
+    std::vector<int> arr(size);
+    std::mt19937 gen(seed);
+    std::uniform_int_distribution<int> dist(0, 10000);
+    for (auto& val : arr) {
+        val = dist(gen);
+    }
+    return arr;
+}
+
+std::vector<int> generate_sorted_array(size_t size) {
+    std::vector<int> arr(size);
+    for (size_t i = 0; i < size; ++i) {
+        arr[i] = i;
+    }
+    return arr;
+}
+
+std::vector<int> generate_reverse_sorted_array(size_t size) {
+    std::vector<int> arr(size);
+    for (size_t i = 0; i < size; ++i) {
+        arr[i] = size - i;
+    }
+    return arr;
+}
