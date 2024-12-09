@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 #include <random>
-#include <chrono>
 #include <functional>
 
 struct stats {
@@ -35,17 +34,17 @@ stats shell_sort(std::vector<int>& arr) {
     for (size_t gap = n / 2; gap > 0; gap /= 2) {
         for (size_t i = gap; i < n; ++i) {
             int temp = arr[i];
-            ++stat.copy_count; // Считаем копирование
+            ++stat.copy_count; 
             size_t j = i;
             while (j >= gap && arr[j - gap] > temp) {
-                ++stat.comparison_count; // Сравнение
+                ++stat.comparison_count; 
                 arr[j] = arr[j - gap];
-                ++stat.copy_count; // Копирование
+                ++stat.copy_count; 
                 j -= gap;
             }
-            if (j >= gap) ++stat.comparison_count; // Последнее сравнение
+            if (j >= gap) ++stat.comparison_count; 
             arr[j] = temp;
-            ++stat.copy_count; // Копирование temp
+            ++stat.copy_count; 
         }
     }
     return stat;
