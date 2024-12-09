@@ -189,3 +189,38 @@ void reverse_array_experiment(size_t size) {
         << "  Heap Sort - Comparisons: " << stats_heap.comparison_count
         << ", Copies: " << stats_heap.copy_count << "\n";
 }
+
+std::ostream& operator<<(std::ostream& os, const std::vector<int>& vec) {
+    os << "[";
+    for (size_t i = 0; i < vec.size(); ++i) {
+        os << vec[i];
+        if (i != vec.size() - 1) {
+            os << ", ";
+        }
+    }
+    os << "]";
+    return os;
+}
+
+void demonstrate_sorting() {
+    std::vector<int> example_array = { 7, 3, 9, 2, 5 };
+    std::cout << "Demonstrating Sorting:\nOriginal Array: " << example_array << "\n";
+
+    std::vector<int> insertion_example = example_array;
+    stats insertion_stats = insertion_sort(insertion_example);
+    std::cout << "After Insertion Sort: " << insertion_example
+        << " (Comparisons: " << insertion_stats.comparison_count
+        << ", Copies: " << insertion_stats.copy_count << ")\n";
+
+    std::vector<int> shell_example = example_array;
+    stats shell_stats = shell_sort(shell_example);
+    std::cout << "After Shell Sort: " << shell_example
+        << " (Comparisons: " << shell_stats.comparison_count
+        << ", Copies: " << shell_stats.copy_count << ")\n";
+
+    std::vector<int> heap_example = example_array;
+    stats heap_stats = heap_sort(heap_example);
+    std::cout << "After Heap Sort: " << heap_example
+        << " (Comparisons: " << heap_stats.comparison_count
+        << ", Copies: " << heap_stats.copy_count << ")\n";
+}
