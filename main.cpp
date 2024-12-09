@@ -49,3 +49,47 @@ stats shell_sort(std::vector<int>& arr) {
     }
     return stat;
 }
+
+void heapify(std::vector<int>& arr, size_t n, size_t i, stats& stat) {
+    size_t largest = i;
+    size_t left = 2 * i + 1;
+    size_t right = 2 * i + 2;
+
+    if (left < n && arr[left] > arr[largest]) {
+        largest = left;
+        ++stat.comparison_count;
+    }
+    else if (left < n) {
+        ++stat.comparison_count;
+    }
+
+    if (right < n && arr[right] > arr[largest]) {
+        largest = right;
+        ++stat.comparison_count;
+    }
+    else if (right < n) {
+        ++stat.comparison_count;
+    }
+
+    if (largest != i) {
+        std::swap(arr[i], arr[largest]);
+        stat.copy_count += 3; 
+        heapify(arr, n, largest, stat);
+    }
+}
+
+stats heap_sort(std::vector<int>& arr) {
+    stats stat;
+    size_t n = arr.size();
+
+    for (int i = n / 2 - 1; i >= 0; --i) {
+        heapify(arr, n, i, stat);
+    }
+
+    for (int i = n - 1; i >= 0; --i) {
+        std::swap(arr[0], arr[i]);
+        stat.copy_count += 3; 
+        heapify(arr, i, 0, stat);
+    }
+    return stat;
+}
