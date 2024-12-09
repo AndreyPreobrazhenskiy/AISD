@@ -224,3 +224,20 @@ void demonstrate_sorting() {
         << " (Comparisons: " << heap_stats.comparison_count
         << ", Copies: " << heap_stats.copy_count << ")\n";
 }
+
+int main() {
+    std::vector<size_t> sizes = { 1000, 2000, 3000, 5000, 10000, 25000, 50000, 100000 };
+
+    demonstrate_sorting();
+    std::cout << "------------------------------------------------------------------\n";
+
+    unsigned seed = 42;
+    for (size_t size : sizes) {
+        random_array_experiment(size, seed);
+        sorted_array_experiment(size);
+        reverse_array_experiment(size);
+        std::cout << "------------------------------------------------------------------\n";
+    }
+
+    return 0;
+}
