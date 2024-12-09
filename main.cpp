@@ -119,3 +119,41 @@ std::vector<int> generate_reverse_sorted_array(size_t size) {
     }
     return arr;
 }
+
+void random_array_experiment(size_t size, unsigned seed) {
+    stats avg_insertion, avg_shell, avg_heap;
+
+    for (int i = 0; i < 100; ++i) {
+        std::vector<int> random_array = generate_random_array(size, seed++);
+        std::vector<int> arr_copy = random_array;
+
+        stats stats_insertion = insertion_sort(arr_copy);
+        avg_insertion.comparison_count += stats_insertion.comparison_count;
+        avg_insertion.copy_count += stats_insertion.copy_count;
+
+        stats stats_shell = shell_sort(random_array);
+        avg_shell.comparison_count += stats_shell.comparison_count;
+        avg_shell.copy_count += stats_shell.copy_count;
+
+        stats stats_heap = heap_sort(random_array);
+        avg_heap.comparison_count += stats_heap.comparison_count;
+        avg_heap.copy_count += stats_heap.copy_count;
+    }
+
+    avg_insertion.comparison_count /= 100;
+    avg_insertion.copy_count /= 100;
+
+    avg_shell.comparison_count /= 100;
+    avg_shell.copy_count /= 100;
+
+    avg_heap.comparison_count /= 100;
+    avg_heap.copy_count /= 100;
+
+    std::cout << "\nRandom Arrays (Size: " << size << ")\n"
+        << "  Insertion Sort - Comparisons: " << avg_insertion.comparison_count
+        << ", Copies: " << avg_insertion.copy_count << "\n"
+        << "  Shell Sort - Comparisons: " << avg_shell.comparison_count
+        << ", Copies: " << avg_shell.copy_count << "\n"
+        << "  Heap Sort - Comparisons: " << avg_heap.comparison_count
+        << ", Copies: " << avg_heap.copy_count << "\n";
+}
