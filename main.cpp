@@ -98,7 +98,7 @@ std::vector<int> generate_random_array(size_t size, unsigned seed) {
     std::vector<int> arr(size);
     std::mt19937 gen(seed);
     std::uniform_int_distribution<int> dist(0, 10000);
-    for (auto& val : arr) {
+    for (int& val : arr) {
         val = dist(gen);
     }
     return arr;
