@@ -51,3 +51,28 @@ void testVectorErase(std::vector<int>& vec, size_t num_attempts) {
         }
     }
 }
+
+std::vector<int> findUniqueElements(const std::vector<int>& nums) {
+    BinarySearchTree bst;  
+    std::vector<int> duplicates; 
+    std::vector<int> result; 
+
+    for (int num : nums) {
+        if (bst.contains(num)) {
+            bst.erase(num);
+            duplicates.push_back(num);
+        }
+        else if (std::find(duplicates.begin(), duplicates.end(), num) == duplicates.end()) {
+            bst.insert(num);
+        }
+    }
+
+    for (int num : nums) {
+        if (bst.contains(num)) {
+            result.push_back(num);
+            bst.erase(num); 
+        }
+    }
+
+    return result;
+}
