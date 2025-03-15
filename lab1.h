@@ -78,3 +78,55 @@ private:
         }
         return true;
     }
+
+    Node* findMin(Node* node) const {
+        while (node && node->left) {
+            node = node->left;
+        }
+        return node;
+    }
+
+    void print(Node* node) const {
+        if (node) {
+            print(node->left);
+            std::cout << node->data << " ";
+            print(node->right);
+        }
+    }
+
+public:
+    BinarySearchTree() : root(nullptr) {}
+
+    ~BinarySearchTree() {
+        destroy(root);
+    }
+
+    BinarySearchTree(const BinarySearchTree& other) {
+        root = copy(other.root);
+    }
+
+    BinarySearchTree& operator=(const BinarySearchTree& other) {
+        if (this != &other) {
+            destroy(root);
+            root = copy(other.root);
+        }
+        return *this;
+    }
+
+    void print() const {
+        print(root);
+        std::cout << std::endl;
+    }
+
+    bool insert(int key) {
+        return insert(root, key);
+    }
+
+    bool contains(int key) const {
+        return contains(root, key);
+    }
+
+    bool erase(int key) {
+        return erase(root, key);
+    }
+};
